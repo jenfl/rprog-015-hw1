@@ -8,8 +8,18 @@ complete <- function (directory, id=1:332) {
     }
     
     ## 'id' is an integer vector indicating the monitor ID numbers
-    ## to be used.  Create a vector of the filenames which are 0ID.csv
+    ## to be used.  
+    
+    ## Return a data frame of the form:
+    ## id nobs
+    ## 1  117
+    ## 2  1041
+    ## ...
+    ## Where 'id' is the monitor ID number and 'nobs' is the number
+    ## of complete cases
+    
     idfiles <- seq(length(id))
+    completeObs <- data.frame(id=id, nobs=rep(0,length(id)))
     j <- 1
     for (i in id) {
         filename <- paste(formatC(i, width=3, format="d", flag="0"), ".csv", sep="")
@@ -20,19 +30,9 @@ complete <- function (directory, id=1:332) {
         }
         idfiles[j] <- testfile
         j <- j+1
+        monitorData <- read.csv(testfile)
     }
     
-    ## Return a data frame of the form:
-    ## id nobs
-    ## 1  117
-    ## 2  1041
-    ## ...
-    ## Where 'id' is the monitor ID number and 'nobs' is the number
-    ## of complete cases
-    
-    for (monitorFile in idfiles) {
-        monitorData <- read.csv(monitorFile)
-        print (monitorData)
-    }
+    print (completeObs)
     
 }
