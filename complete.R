@@ -19,6 +19,7 @@ complete <- function (directory, id=1:332) {
     ## of complete cases
     
     idfiles <- seq(length(id))
+    print (id)
     completeObs <- data.frame(id=id, nobs=rep(0,length(id)))
     j <- 1
     for (i in id) {
@@ -31,6 +32,7 @@ complete <- function (directory, id=1:332) {
         idfiles[j] <- testfile
         j <- j+1
         monitorData <- read.csv(testfile)
+        completeObs[i, "nobs"] <- sum(complete.cases(monitorData))
     }
     
     print (completeObs)
