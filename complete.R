@@ -30,6 +30,6 @@ complete <- function (directory, id=1:332) {
         monitorData <- read.csv(testfile)
         completeObs[as.character(i), "nobs"] <- sum(complete.cases(monitorData))
     }
-    print (completeObs)
+    completeObs
     
 }

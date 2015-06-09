@@ -37,6 +37,6 @@ pollutantmean <- function (directory, pollutant, id=1:332) {
         monitorData <- read.csv(monitorFile)
         values <- c(values, monitorData[[pollutant]])
     }
-    print (mean(values, na.rm=TRUE))
+    mean(values, na.rm=TRUE)
     
 }
