@@ -19,9 +19,7 @@ complete <- function (directory, id=1:332) {
     ## of complete cases
     
     idfiles <- seq(length(id))
-    print (id)
-    completeObs <- data.frame(id=id, nobs=rep(0,length(id)))
-    j <- 1
+    completeObs <- data.frame("nobs"=rep(0,length(id)), row.names=id)
     for (i in id) {
         filename <- paste(formatC(i, width=3, format="d", flag="0"), ".csv", sep="")
         testfile <- file.path(directory,filename)
@@ -29,12 +27,9 @@ complete <- function (directory, id=1:332) {
             print (c("ERROR in finding file ", testfile))
             return (FALSE)
         }
-        idfiles[j] <- testfile
-        j <- j+1
         monitorData <- read.csv(testfile)
-        completeObs[i, "nobs"] <- sum(complete.cases(monitorData))
+        completeObs[as.character(i), "nobs"] <- sum(complete.cases(monitorData))
     }
-    
     print (completeObs)
     
 }
